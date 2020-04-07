@@ -13,3 +13,4 @@ add_executable(Program ${SOURCE_FILES})
 target_include_directories(Program PUBLIC include)
 #Określenie zależności pomiędzy projektami Program i Biblioteka
 target_link_libraries(Program Library)
+enable_testing()
