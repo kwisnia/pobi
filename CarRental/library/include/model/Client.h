@@ -4,23 +4,46 @@
 
 #ifndef CARRENTAL_CLIENT_H
 #define CARRENTAL_CLIENT_H
-#include <string>
+
+#include <vector>
+#include "Address.h"
+class Rent;
 
 class Client {
     private:
         std::string firstName,lastName;
         std::string const personalID;
-        Client();
+        Address* address;
+        std::vector<Rent*> currentRents;
     public:
-        Client(std::string,std::string,std::string);
-        ~Client();
-        std::string GetClientInfo();
-        std::string getfirstName();
-        void setfirstName(std::string);
-        void setlastName(std::string);
-        std::string getlastName();
-        std::string getpersonalID();
-};
+
+    Client(const std::string &firstName, const std::string &lastName, const std::string &personalId,
+           Address *address);
+    ~Client();
+    std::string getClientInfo();
+
+    const std::string &getFirstName() const;
+
+    void setFirstName(const std::string &firstName);
+
+    const std::vector<Rent *> &getCurrentRents() const;
+
+    const std::string &getLastName() const;
+
+    void setLastName(const std::string &lastName);
+
+    Address *getAddress() const;
+
+    void setAddress(Address *address);
+
+    const std::string &getPersonalId() const;
+
+    void addRent(Rent*);
+    const std::string getCurrentRentsInfo() const;
+    std::string getFullClientInfo();
+    void delRent(Rent *rent);
+
+    };
 
 
 #endif //CARRENTAL_CLIENT_H
