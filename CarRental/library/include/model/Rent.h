@@ -24,6 +24,8 @@ private:
 public:
     const pt::ptime &getBeginTime() const;
 
+    virtual ~Rent();
+
     const pt::ptime &getEndTime() const;
 
 public:

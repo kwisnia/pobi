@@ -18,7 +18,7 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_C_FLAGS_DEBUG "-g3 -gdwarf-4")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -gdwarf-4")
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
-set (-Wall -Wpedantic -Wextra)
+set (-Wall -Wpedantic -Wextra -Werror)
 
 #Ustaw nazwę projektu i język na C++
 project(CarRental)

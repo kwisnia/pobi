@@ -38,3 +38,8 @@ bool Vehicle::isRented() const {
 void Vehicle::setRented(bool rented) {
     Vehicle::rented = rented;
 }
+
+Vehicle::~Vehicle() {
+
+}
+

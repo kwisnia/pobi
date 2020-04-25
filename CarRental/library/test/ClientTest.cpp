@@ -4,7 +4,7 @@
 
 #include <boost/test/unit_test.hpp>
 #include "model/Client.h"
-struct F {
+struct C {
     const std::string testFirstName = "Michal";
     const std::string testLastName = "Milowicz";
     const std::string testPersonalID = "0123456789";
@@ -12,18 +12,18 @@ struct F {
     Address *testaddress1;
     Address *testaddress2;
 
-    F() {
+    C() {
         testaddress1 = new Address("Teges", "Szmeges", "Fafafa");
         testaddress2 = new Address("Gameming", "Pitus", "66");
     }
 
-    ~F() {
+    ~C() {
         delete testaddress1;
         delete testaddress2;
     }
 };
 
-BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, F)
+BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, C)
     BOOST_AUTO_TEST_CASE(ClientConstructorTest) {
         Client klient(testFirstName, testLastName, testPersonalID, testaddress1);
         BOOST_TEST_CHECK(klient.getFirstName()==testFirstName);

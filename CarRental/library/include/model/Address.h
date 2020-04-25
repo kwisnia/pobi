@@ -13,7 +13,7 @@ class Address {
     public:
     Address(const std::string &city, const std::string &street, const std::string &number);
 
-    ~Address();
+    virtual ~Address();
         std::string GetAddressInfo();
 
     const std::string &getCity() const;

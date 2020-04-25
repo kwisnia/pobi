@@ -9,7 +9,7 @@
 #include <sstream>
 
 class Vehicle {
-private:
+protected:
     std::string plateNumber;
     unsigned int basePrice;
     bool rented=false;
@@ -29,7 +29,11 @@ public:
 
     void setBasePrice(const unsigned int &basePrice);
 
+    virtual ~Vehicle();
+
     std::string getVehicleInfo();
+
+    virtual unsigned int getActualRentalPrice() = 0;
 };
 
 

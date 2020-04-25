@@ -74,3 +74,7 @@ int Rent::getRentCost() const {
     return rentCost;
 }
 
+Rent::~Rent() {
+
+}
+

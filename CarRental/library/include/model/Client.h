@@ -19,7 +19,7 @@ class Client {
 
     Client(const std::string &firstName, const std::string &lastName, const std::string &personalId,
            Address *address);
-    ~Client();
+    virtual ~Client();
     std::string getClientInfo();
 
     const std::string &getFirstName() const;

@@ -6,7 +6,7 @@ set(SOURCE_FILES
         include/model/Client.h
         include/model/Address.h
         src/model/Address.cpp
-        src/model/Vehicle.cpp include/model/Vehicle.h src/model/Rent.cpp include/model/Rent.h)
+        src/model/Vehicle.cpp include/model/Vehicle.h src/model/Rent.cpp include/model/Rent.h src/model/Bicycle.cpp include/model/Bicycle.h src/model/MotorVehicle.cpp include/model/MotorVehicle.h src/model/Moped.cpp include/model/Moped.h src/model/Car.cpp include/model/Car.h src/model/RentRepository.cpp include/model/RentRepository.h)
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})
 
