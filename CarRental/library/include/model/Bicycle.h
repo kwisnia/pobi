@@ -8,13 +8,14 @@
 
 #include "model/Vehicle.h"
 
-class Bicycle : public virtual Vehicle {
+class Bicycle : public Vehicle {
 public:
     unsigned int getActualRentalPrice();
 
     virtual ~Bicycle();
 
     Bicycle(const std::string &plateNumber, const unsigned int &basePrice);
+    std::string getVehicleInfo();
 };
 
 

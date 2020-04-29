@@ -9,21 +9,21 @@
 #include "model/Address.h"
 #include "model/Rent.h"
 class Rent;
-
-std::string Client::getClientInfo() {
-    std::ostringstream out;
-    out << "Imie i nazwisko klienta: "<<firstName<<" "<<lastName<<std::endl;
-    out << "Adres klienta: "<<getAddress()->GetAddressInfo()<<std::endl;
+using namespace std;
+string Client::getClientInfo() {
+    ostringstream out;
+    out << "Imie i nazwisko klienta: "<<firstName<<" "<<lastName<<endl;
+    out << "Adres klienta: "<<getAddress()->getAddressInfo()<<endl;
     return out.str();
 }
-std::string Client::getFullClientInfo() {
-    std::ostringstream out;
-    out << getClientInfo()<<std::endl;
-    out << "Dane o wypozyczeniach: "<<getCurrentRentsInfo()<<std::endl;
+string Client::getFullClientInfo() {
+    ostringstream out;
+    out << getClientInfo()<<endl;
+    out << "Dane o wypozyczeniach: "<<getCurrentRentsInfo()<<endl;
     return out.str();
 }
 
-Client::Client(const std::string &firstName, const std::string &lastName, const std::string &personalId,
+Client::Client(const string &firstName, const string &lastName, const string &personalId,
                Address *address)
         : firstName(firstName), lastName(lastName), personalID(personalId), address(address){
     currentRents.clear();
@@ -33,20 +33,20 @@ Client::~Client()
 {
 }
 
-const std::string &Client::getFirstName() const {
+const string &Client::getFirstName() const {
     return firstName;
 }
 
-void Client::setFirstName(const std::string &firstName) {
+void Client::setFirstName(const string &firstName) {
     if(firstName.length()>0)
     Client::firstName = firstName;
 }
 
-const std::string &Client::getLastName() const {
+const string &Client::getLastName() const {
     return lastName;
 }
 
-void Client::setLastName(const std::string &lastName) {
+void Client::setLastName(const string &lastName) {
     if(lastName.length()>0)
     Client::lastName = lastName;
 }
@@ -68,17 +68,17 @@ void Client::addRent(Rent * rent) {
     currentRents.push_back(rent);
 }
 
-const std::string Client::getCurrentRentsInfo() const {
-    std::ostringstream out;
+const string Client::getCurrentRentsInfo() const {
+    ostringstream out;
 
     for (int i=0;i<currentRents.size();i++)
         out << currentRents[i]->getRentInfo();
     return out.str();
 }
 
-const std::vector<Rent *> &Client::getCurrentRents() const {
+const vector<Rent *> &Client::getCurrentRents() const {
     return currentRents;
 }
 void Client::delRent(Rent *rent){
-    currentRents.erase(std::remove(currentRents.begin(), currentRents.end(), rent), currentRents.end());
+    currentRents.erase(remove(currentRents.begin(), currentRents.end(), rent), currentRents.end());
 }

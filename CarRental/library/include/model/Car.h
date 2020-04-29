@@ -29,6 +29,8 @@ public:
     segmentType getSegment() const;
 
     void setSegment(segmentType segment);
+
+    std::string getVehicleInfo();
 };
 
 

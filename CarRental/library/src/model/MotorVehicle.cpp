@@ -3,7 +3,7 @@
 //
 
 #include "model/MotorVehicle.h"
-
+using namespace std;
 unsigned int MotorVehicle::ActualRentalPrice() {
 if (engineDisplacement<1000)
     return basePrice;
@@ -14,7 +14,7 @@ else
 }
 MotorVehicle::~MotorVehicle() {}
 
-MotorVehicle::MotorVehicle(const std::string &plateNumber, const unsigned int &basePrice,
+MotorVehicle::MotorVehicle(const string &plateNumber, const unsigned int &basePrice,
                            unsigned int engineDisplacement) : Vehicle(plateNumber, basePrice),
                                                               engineDisplacement(engineDisplacement) {}
 

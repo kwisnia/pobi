@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "Address.h"
+#include <sstream>
 class Rent;
 
 class Client {

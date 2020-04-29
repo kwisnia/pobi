@@ -14,7 +14,8 @@ class Address {
     Address(const std::string &city, const std::string &street, const std::string &number);
 
     virtual ~Address();
-        std::string GetAddressInfo();
+
+    std::string getAddressInfo();
 
     const std::string &getCity() const;
 

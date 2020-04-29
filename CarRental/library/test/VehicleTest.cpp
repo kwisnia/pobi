@@ -73,5 +73,12 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteVehicle,V)
     {
         Car* mclaren=new Car(testPlateNumber, testBasePrice, 8000, Car::E);
         BOOST_TEST_CHECK(mclaren->getActualRentalPrice()==675);
+        delete mclaren;
+    }
+    BOOST_AUTO_TEST_CASE(CarRentalPriceInheritanceTest)
+    {
+        Vehicle* mclaren=new Car(testPlateNumber, testBasePrice, 8000, Car::E);
+        BOOST_TEST_CHECK(mclaren->getActualRentalPrice()==675);
+        delete mclaren;
     }
 BOOST_AUTO_TEST_SUITE_END()

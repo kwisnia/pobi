@@ -6,7 +6,7 @@ set(SOURCE_FILES
         include/model/Client.h
         include/model/Address.h
         src/model/Address.cpp
-        src/model/Vehicle.cpp include/model/Vehicle.h src/model/Rent.cpp include/model/Rent.h src/model/Bicycle.cpp include/model/Bicycle.h src/model/MotorVehicle.cpp include/model/MotorVehicle.h src/model/Moped.cpp include/model/Moped.h src/model/Car.cpp include/model/Car.h src/model/RentRepository.cpp include/model/RentRepository.h)
+        src/model/Vehicle.cpp include/model/Vehicle.h src/model/Rent.cpp include/model/Rent.h src/model/Bicycle.cpp include/model/Bicycle.h src/model/MotorVehicle.cpp include/model/MotorVehicle.h src/model/Moped.cpp include/model/Moped.h src/model/Car.cpp include/model/Car.h src/repositories/RentRepository.cpp include/repositories/RentRepository.h src/repositories/VehicleRepository.cpp include/repositories/VehicleRepository.h src/repositories/ClientRepository.cpp include/repositories/ClientRepository.h include/utils.h src/utils.cpp)
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})
 
@@ -21,7 +21,7 @@ include_directories(
 
 set(SOURCE_TEST_FILES
         test/master.cpp
-        test/ClientTest.cpp test/AddressTest.cpp test/VehicleTest.cpp test/RentTest.cpp)
+        test/ClientTest.cpp test/AddressTest.cpp test/VehicleTest.cpp test/RentTest.cpp test/RepositoriesTest.cpp)
 
 add_executable (LibraryTest ${SOURCE_TEST_FILES})
 enable_testing()

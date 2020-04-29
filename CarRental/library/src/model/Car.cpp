@@ -3,8 +3,8 @@
 //
 
 #include "model/Car.h"
-
-Car::Car(const std::string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement,
+using namespace std;
+Car::Car(const string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement,
          Car::segmentType segment) : MotorVehicle(plateNumber, basePrice, engineDisplacement), segment(segment) {}
 
 Car::~Car() {
@@ -39,4 +39,29 @@ Car::segmentType Car::getSegment() const {
 
 void Car::setSegment(Car::segmentType segment) {
     Car::segment = segment;
+}
+
+std::string Car::getVehicleInfo() {
+    ostringstream out;
+    out <<"Typ pojazdu: Samochod"<<endl<<"Numer rejestacyjny: "<<plateNumber<<endl<<"Cena bazowa pojazdu: "<<getActualRentalPrice()<<endl<<"Auto klasy ";
+    switch (segment)
+    {
+        case A:
+            out<<"A";
+            break;
+        case B:
+            out<<"B";
+            break;
+        case C:
+            out<<"C";
+            break;
+        case D:
+            out<<"D";
+            break;
+        case E:
+            out<<"E";
+            break;
+    }
+    out << endl<<"Pojemnosc silnika: "<<engineDisplacement<<" cm3"<<endl;
+    return out.str();
 }

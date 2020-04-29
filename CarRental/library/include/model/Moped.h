@@ -14,6 +14,8 @@ public:
     unsigned int getActualRentalPrice();
 
     virtual ~Moped();
+
+    std::string getVehicleInfo();
 };
 
 

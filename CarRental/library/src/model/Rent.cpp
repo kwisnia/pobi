@@ -28,9 +28,9 @@ Vehicle *Rent::getVehicle() const {
 }
 string Rent::getRentInfo() {
     ostringstream out;
-    out << "ID wypozyczenia: "<<ID<<endl<<client->getClientInfo()<<endl<<"Dane samochodu: "<<vehicle->getVehicleInfo()<<endl;
-    out << "Data rozpoczecia wypozyczenia: "<<getBeginTime()<<endl;
-    out << "Data zakonczenia wypozyczenia: "<<getEndTime()<<endl;
+    out << "ID wypozyczenia: "<<ID<<endl<<client->getClientInfo()<<endl<<"Dane wypozyczonego pojazdu: "<<endl<<vehicle->getVehicleInfo()<<endl;
+    out << "Data rozpoczecia wypozyczenia: "<<beginTime<<endl;
+    out << "Data zakonczenia wypozyczenia: "<<endTime<<endl;
     return out.str();
 }
 
@@ -77,4 +77,5 @@ int Rent::getRentCost() const {
 Rent::~Rent() {
 
 }
+
 

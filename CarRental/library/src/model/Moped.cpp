@@ -3,8 +3,8 @@
 //
 
 #include "model/Moped.h"
-
-Moped::Moped(const std::string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement)
+using namespace std;
+Moped::Moped(const string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement)
         : MotorVehicle(plateNumber, basePrice, engineDisplacement) {}
 
 unsigned int Moped::getActualRentalPrice() {
@@ -13,4 +13,10 @@ unsigned int Moped::getActualRentalPrice() {
 
 Moped::~Moped() {
 
+}
+
+std::string Moped::getVehicleInfo() {
+    ostringstream out;
+    out <<"Typ pojazdu: Motorower"<<endl<<"Numer rejestacyjny: "<<plateNumber<<endl<<"Cena bazowa pojazdu: "<<getActualRentalPrice()<<endl<<"Pojemnosc silnika: "<<engineDisplacement<<" cm3"<<endl;
+    return out.str();
 }

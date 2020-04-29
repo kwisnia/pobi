@@ -44,6 +44,8 @@ public:
     int getRentDays() const;
 
     int getRentCost() const;
+
+
 };
 
 
