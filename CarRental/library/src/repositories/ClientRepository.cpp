@@ -7,21 +7,14 @@ using namespace std;
 ClientRepository::ClientRepository() {}
 
 ClientRepository::~ClientRepository() {
-    for (list<clientptr>::const_iterator iter = this->ClientRepo.begin(),
-                 end = this->ClientRepo.end();
-         iter != end;
-         ++iter)
-    {
-        delete *iter;
-    }
 }
 
-clientptr ClientRepository::get(unsigned int& id) {
+ClientPtr ClientRepository::get(unsigned int& id) {
     int i=0;
     if (this->size()<id or id==0)
         return nullptr;
     else
-        for (list<clientptr>::const_iterator iter = this->ClientRepo.begin(),
+        for (list<ClientPtr>::const_iterator iter = this->ClientRepo.begin(),
                      end = this->ClientRepo.end();
              iter != end;
              ++iter)
@@ -37,26 +30,38 @@ unsigned int ClientRepository::size() {
     return ClientRepo.size();
 }
 
-void ClientRepository::add(clientptr c) {
+void ClientRepository::add(ClientPtr c) {
     this->ClientRepo.push_back(c);
 }
 
-list<clientptr> ClientRepository::find(bool (*fun)(clientptr)) {
-    list<clientptr> found;
-    for (list<clientptr>::const_iterator iter = this->ClientRepo.begin(),
+list<ClientPtr> ClientRepository::findAll(ClientPredicate check) {
+    list<ClientPtr> found;
+    for (list<ClientPtr>::const_iterator iter = this->ClientRepo.begin(),
                  end = this->ClientRepo.end();
          iter != end;
          ++iter)
     {
-        if(fun(*iter))
+        if(check(*iter))
             found.push_back(*iter);
     }
     return found;
 }
 
+ClientPtr ClientRepository::find(ClientPredicate check) {
+    for (list<ClientPtr>::const_iterator iter = this->ClientRepo.begin(),
+                 end = this->ClientRepo.end();
+         iter != end;
+         ++iter)
+    {
+        if(check(*iter))
+            return *iter;
+    }
+    return nullptr;
+}
+
 std::string ClientRepository::report() {
     std::ostringstream out;
-    for (list<clientptr>::const_iterator iter = this->ClientRepo.begin(),
+    for (list<ClientPtr>::const_iterator iter = this->ClientRepo.begin(),
                  end = this->ClientRepo.end();
          iter != end;
          ++iter)
@@ -65,3 +70,4 @@ std::string ClientRepository::report() {
     }
     return out.str();
 }
+

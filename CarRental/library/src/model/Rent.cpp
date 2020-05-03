@@ -4,11 +4,9 @@
 
 #include "model/Rent.h"
 using namespace std;
-Rent::Rent(const unsigned int id, Client *client, Vehicle *vehicle, pt::ptime& beginTime) : ID(id), client(client),
+Rent::Rent(const unsigned int id, ClientPtr client, VehiclePtr vehicle, pt::ptime& beginTime) : ID(id), client(client),
                                                                                            vehicle(vehicle),
                                                                                            beginTime(beginTime) {
-    vehicle->setRented(true);
-    client->addRent(this);
     if (beginTime==pt::not_a_date_time)
         this->beginTime=pt::second_clock::local_time();
     endTime=pt::not_a_date_time;
@@ -19,11 +17,11 @@ const unsigned int Rent::getId() const {
     return ID;
 }
 
-Client *Rent::getClient() const {
+ClientPtr Rent::getClient() const {
     return client;
 }
 
-Vehicle *Rent::getVehicle() const {
+VehiclePtr Rent::getVehicle() const {
     return vehicle;
 }
 string Rent::getRentInfo() {
@@ -53,8 +51,6 @@ void Rent::endRent(pt::ptime &endTime)
         else
             this->endTime = endTime;
 
-        vehicle->setRented(false);
-        client->delRent(this);
         rentCost = getRentDays() * vehicle->getBasePrice();
     }
 }

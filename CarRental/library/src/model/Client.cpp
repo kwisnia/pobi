@@ -16,17 +16,11 @@ string Client::getClientInfo() {
     out << "Adres klienta: "<<getAddress()->getAddressInfo()<<endl;
     return out.str();
 }
-string Client::getFullClientInfo() {
-    ostringstream out;
-    out << getClientInfo()<<endl;
-    out << "Dane o wypozyczeniach: "<<getCurrentRentsInfo()<<endl;
-    return out.str();
-}
 
 Client::Client(const string &firstName, const string &lastName, const string &personalId,
-               Address *address)
+               AddressPtr address)
         : firstName(firstName), lastName(lastName), personalID(personalId), address(address){
-    currentRents.clear();
+    clientType=std::make_shared<Default>();
 }
 
 Client::~Client()
@@ -51,11 +45,11 @@ void Client::setLastName(const string &lastName) {
     Client::lastName = lastName;
 }
 
-Address *Client::getAddress() const {
+AddressPtr Client::getAddress() const {
     return address;
 }
 
-void Client::setAddress(Address *address) {
+void Client::setAddress(AddressPtr address) {
     if(address!= nullptr)
     Client::address = address;
 }
@@ -64,21 +58,24 @@ const std::string &Client::getPersonalId() const {
     return personalID;
 }
 
-void Client::addRent(Rent * rent) {
-    currentRents.push_back(rent);
+bool Client::isArchive1() const {
+    return isArchive;
 }
 
-const string Client::getCurrentRentsInfo() const {
-    ostringstream out;
-
-    for (int i=0;i<currentRents.size();i++)
-        out << currentRents[i]->getRentInfo();
-    return out.str();
+void Client::setIsArchive(bool isArchive) {
+    Client::isArchive = isArchive;
 }
 
-const vector<Rent *> &Client::getCurrentRents() const {
-    return currentRents;
+const ClientTypePtr &Client::getClientType() const {
+    return clientType;
 }
-void Client::delRent(Rent *rent){
-    currentRents.erase(remove(currentRents.begin(), currentRents.end(), rent), currentRents.end());
+
+void Client::setClientType(const ClientTypePtr &clientType) {
+    Client::clientType = clientType;
 }
+
+int Client::getMaxVehicles() {
+    return this->clientType->getMaxVehicles();
+}
+
+

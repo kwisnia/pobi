@@ -24,13 +24,13 @@ public:
 
     virtual ~Car();
 
-    unsigned int getActualRentalPrice();
+    unsigned int getActualRentalPrice() override;
 
     segmentType getSegment() const;
 
     void setSegment(segmentType segment);
 
-    std::string getVehicleInfo();
+    std::string getVehicleInfo() override;
 };
 
 

@@ -8,18 +8,17 @@
 #include <list>
 #include "model/Client.h"
 
-typedef Client* clientptr ;
-
 class ClientRepository {
 private:
-std::list<clientptr> ClientRepo;
+std::list<ClientPtr> ClientRepo;
 public:
 ClientRepository();
 virtual ~ClientRepository();
-clientptr get(unsigned int&);
+ClientPtr get(unsigned int&);
 unsigned int size();
-void add(clientptr);
-std::list<clientptr> find(bool (*fun)(clientptr));
+void add(ClientPtr);
+std::list<ClientPtr> findAll(ClientPredicate);
+ClientPtr find(ClientPredicate);
 std::string report();
 };
 

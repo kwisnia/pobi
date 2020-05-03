@@ -7,21 +7,14 @@ using namespace std;
 RentRepository::RentRepository() {}
 
 RentRepository::~RentRepository() {
-    for (list<rentptr>::const_iterator iter = this->RentRepo.begin(),
-                 end = this->RentRepo.end();
-         iter != end;
-         ++iter)
-    {
-        delete *iter;
-    }
 }
 
-rentptr RentRepository::get(unsigned int& id) {
+RentPtr RentRepository::get(unsigned int& id) {
     int i=0;
     if (this->size()<id or id==0)
         return nullptr;
     else
-        for (list<rentptr>::const_iterator iter = this->RentRepo.begin(),
+        for (list<RentPtr>::const_iterator iter = this->RentRepo.begin(),
                      end = this->RentRepo.end();
              iter != end;
              ++iter)
@@ -37,26 +30,37 @@ unsigned int RentRepository::size() {
     return RentRepo.size();
 }
 
-void RentRepository::add(rentptr r) {
+void RentRepository::add(RentPtr r) {
     this->RentRepo.push_back(r);
 }
 
-list<rentptr> RentRepository::find(bool (*fun)(rentptr)) {
-    list<rentptr> found;
-    for (list<rentptr>::const_iterator iter = this->RentRepo.begin(),
+list<RentPtr> RentRepository::findAll(RentPredicate check) {
+    list<RentPtr> found;
+    for (list<RentPtr>::const_iterator iter = this->RentRepo.begin(),
                  end = this->RentRepo.end();
          iter != end;
          ++iter)
     {
-        if(fun(*iter))
+        if(check(*iter))
             found.push_back(*iter);
     }
     return found;
 }
+RentPtr RentRepository::find(RentPredicate check) {
+    for (list<RentPtr>::const_iterator iter = this->RentRepo.begin(),
+                 end = this->RentRepo.end();
+         iter != end;
+         ++iter)
+    {
+        if(check(*iter))
+            return *iter;
+    }
+    return nullptr;
+}
 
 string RentRepository::report() {
     ostringstream out;
-    for (list<rentptr>::const_iterator iter = this->RentRepo.begin(),
+    for (list<RentPtr>::const_iterator iter = this->RentRepo.begin(),
                  end = this->RentRepo.end();
          iter != end;
          ++iter)
@@ -65,4 +69,10 @@ string RentRepository::report() {
     }
     return out.str();
 }
+
+list<RentPtr> &RentRepository::getRentRepo() {
+    return RentRepo;
+}
+
+
 

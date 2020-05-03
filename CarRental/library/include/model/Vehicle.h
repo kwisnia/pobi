@@ -7,18 +7,18 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "model/typedefs.h"
 
 class Vehicle {
 protected:
     std::string plateNumber;
     unsigned int basePrice;
-    bool rented=false;
+    bool isArchive;
 public:
-    bool isRented() const;
+    bool isArchive1() const;
 
-    void setRented(bool rented);
+    void setIsArchive(bool isArchive);
 
-public:
     Vehicle(const std::string &plateNumber, const unsigned int &basePrice);
 
     const std::string &getPlateNumber() const;
@@ -34,6 +34,7 @@ public:
     virtual std::string getVehicleInfo()=0;
 
     virtual unsigned int getActualRentalPrice() = 0;
+
 };
 
 

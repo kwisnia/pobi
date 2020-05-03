@@ -10,12 +10,12 @@
 
 class Bicycle : public Vehicle {
 public:
-    unsigned int getActualRentalPrice();
+    unsigned int getActualRentalPrice() override;
 
     virtual ~Bicycle();
 
     Bicycle(const std::string &plateNumber, const unsigned int &basePrice);
-    std::string getVehicleInfo();
+    std::string getVehicleInfo() override;
 };
 
 

@@ -9,17 +9,20 @@
 #include <list>
 #include "model/Rent.h"
 
-typedef Rent* rentptr ;
 class RentRepository {
 private:
-    std::list<rentptr> RentRepo;
+    std::list<RentPtr> RentRepo;
+public:
+    std::list<RentPtr> &getRentRepo();
+
 public:
     RentRepository();
     virtual ~RentRepository();
-    rentptr get(unsigned int&);
+    RentPtr get(unsigned int&);
     unsigned int size();
-    void add(rentptr);
-    std::list<rentptr> find(bool (*fun)(rentptr));
+    void add(RentPtr);
+    std::list<RentPtr> findAll(RentPredicate);
+    RentPtr find(RentPredicate);
     std::string report();
 };
 

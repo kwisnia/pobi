@@ -10,6 +10,7 @@
 #include "model/Car.h"
 #include "model/Bicycle.h"
 
-void fillRepos(ClientRepository* CR, VehicleRepository* VR, RentRepository* RR);
+
+void fillRepos(ClientRepoPtr CR, VehicleRepoPtr VR, RentRepoPtr RR);
 
 #endif //CARRENTAL_UTILS_H

@@ -5,6 +5,7 @@
 #ifndef CARRENTAL_ADDRESS_H
 #define CARRENTAL_ADDRESS_H
 #include <string>
+#include "model/typedefs.h"
 
 
 class Address {

@@ -11,11 +11,11 @@ class Moped : public MotorVehicle {
 public:
     Moped(const std::string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement);
 
-    unsigned int getActualRentalPrice();
+    unsigned int getActualRentalPrice() override;
 
     virtual ~Moped();
 
-    std::string getVehicleInfo();
+    std::string getVehicleInfo() override;
 };
 
 

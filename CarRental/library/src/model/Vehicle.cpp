@@ -25,15 +25,15 @@ void Vehicle::setBasePrice(const unsigned int &basePrice) {
     Vehicle::basePrice = basePrice;
 }
 
-bool Vehicle::isRented() const {
-    return rented;
-}
-
-void Vehicle::setRented(bool rented) {
-    Vehicle::rented = rented;
-}
-
 Vehicle::~Vehicle() {
 
+}
+
+bool Vehicle::isArchive1() const {
+    return isArchive;
+}
+
+void Vehicle::setIsArchive(bool isArchive) {
+    Vehicle::isArchive = isArchive;
 }
 
