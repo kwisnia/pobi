@@ -28,6 +28,7 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, C)
         BOOST_TEST_CHECK(klient->getLastName()==testLastName);
         BOOST_TEST_CHECK(klient->getPersonalId()==testPersonalID);
         BOOST_TEST_CHECK(klient->getAddress()==testaddress1);
+        BOOST_TEST_CHECK(klient->getMaxVehicles()==1);
     }
     BOOST_AUTO_TEST_CASE(SetFirstNamePositiveTest) {
         ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
@@ -59,6 +60,30 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, C)
         ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
         klient->setAddress(nullptr);
         BOOST_TEST_CHECK(klient->getAddress()==testaddress1);
-
 }
+    BOOST_AUTO_TEST_CASE(SetClientTypePositiveTest){
+        ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
+        ClientTypePtr diamond(new Diamond());
+        klient->setClientType(diamond);
+        BOOST_TEST_CHECK(klient->getClientType()==diamond);
+        BOOST_TEST_CHECK(klient->getMaxVehicles()==10);
+}
+    BOOST_AUTO_TEST_CASE(SetClientTypeNegativeTest){
+        ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
+        klient->setClientType(nullptr);
+        BOOST_TEST_CHECK(klient->getMaxVehicles()==1);
+}
+    BOOST_AUTO_TEST_CASE(ClientTypeConstantDiscountTest){
+        ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
+        ClientTypePtr silver(new Silver());
+        klient->setClientType(silver);
+        BOOST_TEST_CHECK(klient->getClientType()->applyDiscount(20)==14);
+}
+    BOOST_AUTO_TEST_CASE(ClientTypePercentDiscountTest){
+        ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
+        ClientTypePtr diamond(new Diamond());
+        klient->setClientType(diamond);
+        BOOST_TEST_CHECK(klient->getClientType()->applyDiscount(300)==210);
+    }
+
 BOOST_AUTO_TEST_SUITE_END()

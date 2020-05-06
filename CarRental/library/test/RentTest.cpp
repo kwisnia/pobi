@@ -25,7 +25,7 @@ struct R {
     R() {
         testaddress = std::make_shared<Address>("Teges", "Szmeges", "Fafafa");
         testClient = std::make_shared<Client>(testFirstName, testLastName, testPersonalID, testaddress);
-        testCar = std::make_shared<Car>(testPlateNumber, testBasePrice, 1000, Car::B);
+        testCar = std::make_shared<Bicycle>(testPlateNumber, testBasePrice);
     }
 
     ~R() {
@@ -48,13 +48,6 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteRent, R)
         pt::time_period skew = pt::time_period(r->getBeginTime(), testCurrentTime);
         BOOST_TEST_CHECK((skew.length().hours() == 0 && skew.length().minutes() == 0));
     }
-
-    /*BOOST_AUTO_TEST_CASE(EndRentBasicTest) {
-        RentPtr r (new Rent(testID, testClient, testCar, testBeginTime));
-        r->endRent(testEndTime);
-        BOOST_TEST_CHECK(r->getEndTime()==testEndTime);
-        delete r;
-    }*/
 
     BOOST_AUTO_TEST_CASE(EndRentTestSetCurrentTime) {
         RentPtr r(new Rent(testID, testClient, testCar, testBeginTime));

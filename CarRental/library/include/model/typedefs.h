@@ -17,7 +17,9 @@ class RentRepository;
 class VehicleRepository;
 class ClientRepository;
 class ClientType;
-
+class ClientManager;
+class RentManager;
+class VehicleManager;
 
 typedef std::shared_ptr<Client> ClientPtr;
 typedef std::shared_ptr<Vehicle> VehiclePtr ;
@@ -30,6 +32,9 @@ typedef std::shared_ptr<ClientRepository> ClientRepoPtr;
 typedef std::shared_ptr<VehicleRepository> VehicleRepoPtr;
 typedef std::shared_ptr<RentRepository> RentRepoPtr;
 typedef std::shared_ptr<ClientType> ClientTypePtr;
+typedef std::shared_ptr<ClientManager> ClientManagerPtr;
+typedef std::shared_ptr<RentManager> RentManagerPtr;
+typedef std::shared_ptr<VehicleManager> VehicleManagerPtr;
 typedef std::function<bool(ClientPtr)> ClientPredicate;
 typedef std::function<bool(RentPtr)> RentPredicate;
 typedef std::function<bool(VehiclePtr)> VehiclePredicate;

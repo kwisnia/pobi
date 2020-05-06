@@ -21,7 +21,7 @@ include_directories(
 
 set(SOURCE_TEST_FILES
         test/master.cpp
-        test/ClientTest.cpp test/AddressTest.cpp test/VehicleTest.cpp test/RentTest.cpp test/RepositoriesTest.cpp)
+        test/ClientTest.cpp test/AddressTest.cpp test/VehicleTest.cpp test/RentTest.cpp test/ManagersTest.cpp)
 
 add_executable (LibraryTest ${SOURCE_TEST_FILES})
 enable_testing()

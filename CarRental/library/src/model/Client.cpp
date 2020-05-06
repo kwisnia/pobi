@@ -71,6 +71,7 @@ const ClientTypePtr &Client::getClientType() const {
 }
 
 void Client::setClientType(const ClientTypePtr &clientType) {
+    if (clientType!=nullptr)
     Client::clientType = clientType;
 }
 

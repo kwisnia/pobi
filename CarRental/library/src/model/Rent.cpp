@@ -51,7 +51,7 @@ void Rent::endRent(pt::ptime &endTime)
         else
             this->endTime = endTime;
 
-        rentCost = getRentDays() * vehicle->getBasePrice();
+        rentCost = this->getClient()->getClientType()->applyDiscount(getRentDays() * vehicle->getActualRentalPrice());
     }
 }
 

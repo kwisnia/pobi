@@ -13,7 +13,7 @@ class Vehicle {
 protected:
     std::string plateNumber;
     unsigned int basePrice;
-    bool isArchive;
+    bool isArchive=false;
 public:
     bool isArchive1() const;
 

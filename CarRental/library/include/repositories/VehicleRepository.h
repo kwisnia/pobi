@@ -13,19 +13,11 @@
 
 class VehicleRepository {
     private:
+        friend class VehicleManager;
         std::list<VehiclePtr> VehicleRepo;
-public:
-    const std::list<VehiclePtr> &getVehicleRepo() const;
-
 public:
         VehicleRepository();
         virtual ~VehicleRepository();
-        VehiclePtr get(unsigned int&);
-        unsigned int size();
-        void add(VehiclePtr);
-        std::list<VehiclePtr> findAll(VehiclePredicate);
-        VehiclePtr find(VehiclePredicate);
-        std::string report();
     };
 
 

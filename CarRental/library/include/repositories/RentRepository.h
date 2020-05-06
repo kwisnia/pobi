@@ -11,19 +11,11 @@
 
 class RentRepository {
 private:
+    friend class RentManager;
     std::list<RentPtr> RentRepo;
-public:
-    std::list<RentPtr> &getRentRepo();
-
 public:
     RentRepository();
     virtual ~RentRepository();
-    RentPtr get(unsigned int&);
-    unsigned int size();
-    void add(RentPtr);
-    std::list<RentPtr> findAll(RentPredicate);
-    RentPtr find(RentPredicate);
-    std::string report();
 };
 
 
