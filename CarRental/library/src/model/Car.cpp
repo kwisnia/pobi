@@ -15,19 +15,19 @@ unsigned int Car::getActualRentalPrice() {
     switch (segment)
     {
         case A:
-            return ActualRentalPrice();
+            return MotorVehicle::getActualRentalPrice();
             break;
         case B:
-            return 1.1*ActualRentalPrice();
+            return 1.1*MotorVehicle::getActualRentalPrice();
             break;
         case C:
-            return 1.2*ActualRentalPrice();
+            return 1.2*MotorVehicle::getActualRentalPrice();
             break;
         case D:
-            return 1.3*ActualRentalPrice();
+            return 1.3*MotorVehicle::getActualRentalPrice();
             break;
         case E:
-            return 1.5*ActualRentalPrice();
+            return 1.5*MotorVehicle::getActualRentalPrice();
             break;
     }
     return 0;
@@ -43,7 +43,7 @@ void Car::setSegment(Car::segmentType segment) {
 
 std::string Car::getVehicleInfo() {
     ostringstream out;
-    out <<"Typ pojazdu: Samochod"<<endl<<"Numer rejestacyjny: "<<plateNumber<<endl<<"Cena bazowa pojazdu: "<<getActualRentalPrice()<<endl<<"Auto klasy ";
+    out <<"Typ pojazdu: Samochod"<<endl<<MotorVehicle::getVehicleInfo()<<endl<<"Auto klasy ";
     switch (segment)
     {
         case A:
@@ -62,6 +62,5 @@ std::string Car::getVehicleInfo() {
             out<<"E";
             break;
     }
-    out << endl<<"Pojemnosc silnika: "<<engineDisplacement<<" cm3"<<endl;
     return out.str();
 }

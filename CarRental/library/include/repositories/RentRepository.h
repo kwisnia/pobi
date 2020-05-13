@@ -11,11 +11,16 @@
 
 class RentRepository {
 private:
-    friend class RentManager;
     std::list<RentPtr> RentRepo;
 public:
     RentRepository();
     virtual ~RentRepository();
+    void remove(RentPtr);
+    void add(RentPtr);
+    int RepoSize();
+    std::_List_iterator<std::shared_ptr<Rent>> begin();
+    std::_List_iterator<std::shared_ptr<Rent>> end();
+
 };
 
 

@@ -31,7 +31,7 @@ public:
 
     virtual ~Vehicle();
 
-    virtual std::string getVehicleInfo()=0;
+    virtual std::string getVehicleInfo();
 
     virtual unsigned int getActualRentalPrice() = 0;
 

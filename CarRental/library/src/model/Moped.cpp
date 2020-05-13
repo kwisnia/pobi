@@ -8,7 +8,7 @@ Moped::Moped(const string &plateNumber, const unsigned int &basePrice, unsigned 
         : MotorVehicle(plateNumber, basePrice, engineDisplacement) {}
 
 unsigned int Moped::getActualRentalPrice() {
-    return ActualRentalPrice();
+    return MotorVehicle::getActualRentalPrice();
 }
 
 Moped::~Moped() {
@@ -17,6 +17,6 @@ Moped::~Moped() {
 
 std::string Moped::getVehicleInfo() {
     ostringstream out;
-    out <<"Typ pojazdu: Motorower"<<endl<<"Numer rejestacyjny: "<<plateNumber<<endl<<"Cena bazowa pojazdu: "<<getActualRentalPrice()<<endl<<"Pojemnosc silnika: "<<engineDisplacement<<" cm3"<<endl;
+    out <<"Typ pojazdu: Motorower"<<endl<<MotorVehicle::getVehicleInfo();
     return out.str();
 }

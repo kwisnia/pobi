@@ -15,7 +15,6 @@ public:
     VehiclePtr registerCar(std::string, int, int, Car::segmentType);
     void unregisterVehicle(VehiclePtr);
     VehiclePtr getVehicle(std::string);
-    void add(VehiclePtr);
     std::list<VehiclePtr> findAll(VehiclePredicate);
     VehiclePtr find(VehiclePredicate);
     std::string report();

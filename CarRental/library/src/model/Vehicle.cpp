@@ -36,4 +36,8 @@ bool Vehicle::isArchive1() const {
 void Vehicle::setIsArchive(bool isArchive) {
     Vehicle::isArchive = isArchive;
 }
-
+std::string Vehicle::getVehicleInfo() {
+    ostringstream out;
+    out << "Numer rejestracyjny pojazdu: " << plateNumber << endl << "Cena bazowa pojazdu: " << basePrice << endl;
+    return out.str();
+}

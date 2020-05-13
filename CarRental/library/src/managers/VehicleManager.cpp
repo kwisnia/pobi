@@ -5,14 +5,10 @@
 #include "managers/VehicleManager.h"
 #include <iostream>
 using namespace std;
-void VehicleManager::add(VehiclePtr v) {
-    vehicleRepository->VehicleRepo.push_back(v);
-}
-
 list<VehiclePtr> VehicleManager::findAll(VehiclePredicate check) {
     list<VehiclePtr > found;
-    for (list<VehiclePtr>::const_iterator iter = this->vehicleRepository->VehicleRepo.begin(),
-                 end = this->vehicleRepository->VehicleRepo.end();
+    for (list<VehiclePtr>::const_iterator iter = this->vehicleRepository->begin(),
+                 end = this->vehicleRepository->end();
          iter != end;
          ++iter)
     {
@@ -24,8 +20,8 @@ list<VehiclePtr> VehicleManager::findAll(VehiclePredicate check) {
 
 std::string VehicleManager::report() {
     ostringstream out;
-    for (list<VehiclePtr>::const_iterator iter = this->vehicleRepository->VehicleRepo.begin(),
-                 end = this->vehicleRepository->VehicleRepo.end();
+    for (list<VehiclePtr>::const_iterator iter = this->vehicleRepository->begin(),
+                 end = this->vehicleRepository->end();
          iter != end;
          ++iter)
     {
@@ -35,8 +31,8 @@ std::string VehicleManager::report() {
 }
 
 VehiclePtr VehicleManager::find(VehiclePredicate check) {
-    for (list<VehiclePtr>::const_iterator iter = this->vehicleRepository->VehicleRepo.begin(),
-                 end = this->vehicleRepository->VehicleRepo.end();
+    for (list<VehiclePtr>::const_iterator iter = this->vehicleRepository->begin(),
+                 end = this->vehicleRepository->end();
          iter != end;
          ++iter)
     {
@@ -51,9 +47,9 @@ VehiclePtr VehicleManager::registerBicycle(string plateNumber, int basePrice) {
     if (repeatCheck != nullptr)
         return nullptr;
     else {
-        VehiclePtr newc(new Bicycle(plateNumber, basePrice));
-        add(newc);
-        return newc;
+        VehiclePtr newv(new Bicycle(plateNumber, basePrice));
+        vehicleRepository->add(newv);
+        return newv;
     }}
 
 VehiclePtr VehicleManager::registerMoped(string plateNumber, int basePrice, int engineDisplacement) {
@@ -61,9 +57,9 @@ VehiclePtr VehicleManager::registerMoped(string plateNumber, int basePrice, int 
     if (repeatCheck != nullptr)
         return nullptr;
     else {
-        VehiclePtr newc(new Moped(plateNumber, basePrice,engineDisplacement));
-        add(newc);
-        return newc;
+        VehiclePtr newm(new Moped(plateNumber, basePrice,engineDisplacement));
+        vehicleRepository->add(newm);
+        return newm;
     }
 }
 
@@ -73,7 +69,7 @@ VehiclePtr VehicleManager::registerCar(string plateNumber, int basePrice, int en
         return nullptr;
     else {
         VehiclePtr newc(new Car(plateNumber, basePrice,engineDisplacement,segment));
-        add(newc);
+        vehicleRepository->add(newc);
         return newc;
     }}
 
@@ -89,5 +85,6 @@ VehiclePtr VehicleManager::getVehicle(string plateNumber) {
 }
 
 unsigned int VehicleManager::RepoSize() {
-    return vehicleRepository->VehicleRepo.size();
+    return vehicleRepository->RepoSize();
 }
+

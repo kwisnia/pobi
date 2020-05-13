@@ -5,14 +5,11 @@
 #include "managers/ClientManager.h"
 #include <iostream>
 using namespace std;
-void ClientManager::add(ClientPtr c) {
-    clientRepository->ClientRepo.push_back(c);
-}
 
 list<ClientPtr> ClientManager::findAll(ClientPredicate check) {
     list<ClientPtr> found;
-    for (list<ClientPtr>::const_iterator iter = this->clientRepository->ClientRepo.begin(),
-                 end = this->clientRepository->ClientRepo.end();
+    for (list<ClientPtr>::const_iterator iter = this->clientRepository->begin(),
+                 end = this->clientRepository->end();
          iter != end;
          ++iter)
     {
@@ -23,8 +20,8 @@ list<ClientPtr> ClientManager::findAll(ClientPredicate check) {
 }
 
 ClientPtr ClientManager::find(ClientPredicate check) {
-    for (list<ClientPtr>::const_iterator iter = this->clientRepository->ClientRepo.begin(),
-                 end = this->clientRepository->ClientRepo.end();
+    for (list<ClientPtr>::const_iterator iter = this->clientRepository->begin(),
+                 end = this->clientRepository->end();
          iter != end;
          ++iter)
     {
@@ -36,8 +33,8 @@ ClientPtr ClientManager::find(ClientPredicate check) {
 
 std::string ClientManager::report() {
     std::ostringstream out;
-    for (list<ClientPtr>::const_iterator iter = this->clientRepository->ClientRepo.begin(),
-                 end = this->clientRepository->ClientRepo.end();
+    for (list<ClientPtr>::const_iterator iter = this->clientRepository->begin(),
+                 end = this->clientRepository->end();
          iter != end;
          ++iter)
     {
@@ -53,7 +50,7 @@ ClientPtr ClientManager::registerClient(string firstName, string lastName, strin
         return nullptr;
     else {
         ClientPtr newc(new Client(firstName,lastName,personalID,address));
-        add(newc);
+        clientRepository->add(newc);
         return newc;
     }
 }
@@ -68,6 +65,7 @@ ClientPtr ClientManager::getClient(string ID) {
 }
 
 unsigned int ClientManager::RepoSize() {
-    return clientRepository->ClientRepo.size();
+    return clientRepository->RepoSize();
 }
+
 

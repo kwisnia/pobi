@@ -4,7 +4,7 @@
 
 #include "model/MotorVehicle.h"
 using namespace std;
-unsigned int MotorVehicle::ActualRentalPrice() {
+unsigned int MotorVehicle::getActualRentalPrice() {
 if (engineDisplacement<1000)
     return basePrice;
 else if (engineDisplacement>=1000 and engineDisplacement<=2000)
@@ -25,4 +25,8 @@ unsigned int MotorVehicle::getEngineDisplacement() const {
 void MotorVehicle::setEngineDisplacement(unsigned int engineDisplacement) {
     MotorVehicle::engineDisplacement = engineDisplacement;
 }
-
+std::string MotorVehicle::getVehicleInfo() {
+    ostringstream out;
+    out << Vehicle::getVehicleInfo()<<"Pojemnosc silnika: "<<engineDisplacement<<" cm3"<<endl;
+    return out.str();
+}

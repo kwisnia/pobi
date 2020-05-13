@@ -5,14 +5,22 @@
 #include "managers/RentManager.h"
 #include <iostream>
 using namespace std;
-void RentManager::add(RentPtr r) {
-    currentRents->RentRepo.push_back(r);
-}
 
-list<RentPtr> RentManager::findAll(RentRepoPtr rr,RentPredicate check) {
+list<RentPtr> RentManager::findAllCurrent(RentPredicate check) {
     list<RentPtr> found;
-    for (list<RentPtr>::const_iterator iter = rr->RentRepo.begin(),
-                 end = rr->RentRepo.end();
+    for (list<RentPtr>::const_iterator iter = currentRents->begin(),
+                 end = currentRents->end();
+         iter != end;
+         ++iter) {
+        if (check(*iter))
+            found.push_back(*iter);
+    }
+    return found;
+}
+list<RentPtr> RentManager::findAllArchive(RentPredicate check) {
+    list<RentPtr> found;
+    for (list<RentPtr>::const_iterator iter = archiveRents->begin(),
+                 end = archiveRents->end();
          iter != end;
          ++iter)
     {
@@ -21,9 +29,21 @@ list<RentPtr> RentManager::findAll(RentRepoPtr rr,RentPredicate check) {
     }
     return found;
 }
-RentPtr RentManager::find(RentRepoPtr rr,RentPredicate check) {
-    for (list<RentPtr>::const_iterator iter = rr->RentRepo.begin(),
-                 end = rr->RentRepo.end();
+
+RentPtr RentManager::findCurrent(RentPredicate check) {
+    for (list<RentPtr>::const_iterator iter = currentRents->begin(),
+                 end = currentRents->end();
+         iter != end;
+         ++iter)
+    {
+        if(check(*iter))
+            return *iter;
+    }
+    return nullptr;
+}
+RentPtr RentManager::findArchive(RentPredicate check) {
+    for (list<RentPtr>::const_iterator iter = archiveRents->begin(),
+                 end = archiveRents->end();
          iter != end;
          ++iter)
     {
@@ -33,10 +53,21 @@ RentPtr RentManager::find(RentRepoPtr rr,RentPredicate check) {
     return nullptr;
 }
 
-string RentManager::report(RentRepoPtr rr) {
+string RentManager::reportCurrent() {
     ostringstream out;
-    for (list<RentPtr>::const_iterator iter = rr->RentRepo.begin(),
-                 end = rr->RentRepo.end();
+    for (list<RentPtr>::const_iterator iter = currentRents->begin(),
+                 end = currentRents->end();
+         iter != end;
+         ++iter)
+    {
+        out << (*iter)->getRentInfo()<<endl;
+    }
+    return out.str();
+}
+string RentManager::reportArchive() {
+    ostringstream out;
+    for (list<RentPtr>::const_iterator iter = archiveRents->begin(),
+                 end = archiveRents->end();
          iter != end;
          ++iter)
     {
@@ -48,28 +79,30 @@ string RentManager::report(RentRepoPtr rr) {
 
 
 RentPtr RentManager::rentVehicle(int id,ClientPtr c, VehiclePtr v, pt::ptime beginTime) {
-    list<RentPtr> clientrents=findAll(currentRents,[c](RentPtr r){return r->getClient()==c;});
-    RentPtr vehiclecheck=find(currentRents,[v](RentPtr r){return r->getVehicle()==v;});
+    list<RentPtr> clientrents=findAllCurrent([c](RentPtr r){return r->getClient()==c;});
+    RentPtr vehiclecheck=findCurrent([v](RentPtr r){return r->getVehicle()==v;});
     if (clientrents.size()==c->getMaxVehicles() or vehiclecheck!=nullptr)
         return nullptr;
     else
     {   RentPtr newr(new Rent(id,c,v,beginTime));
-        add(newr);
+        currentRents->add(newr);
         return newr;
 }}
 
 void RentManager::returnVehicle(VehiclePtr v) {
-    RentPtr vehiclecheck=find(currentRents,[v](RentPtr r){return r->getVehicle()==v;});
+    RentPtr vehiclecheck=findCurrent([v](RentPtr r){return r->getVehicle()==v;});
     pt::ptime endTime=pt::not_a_date_time;
     if (vehiclecheck!=nullptr)
     {
     vehiclecheck->endRent(endTime);
     list<RentPtr>::const_iterator i;
-    for (i=currentRents->RentRepo.begin();i!=currentRents->RentRepo.end();i++)
+    for (i=currentRents->begin();i!=currentRents->end();i++)
     {
-        if((*i)->getVehicle()==v)
-            archiveRents->RentRepo.splice(archiveRents->RentRepo.end(),currentRents->RentRepo,i);
-        break;
+        if((*i)->getVehicle()==v) {
+            currentRents->remove(*i);
+            archiveRents->add(*i);
+            break;
+        }
     }
     checkClientRentBalance(vehiclecheck->getClient());
     }
@@ -77,7 +110,7 @@ void RentManager::returnVehicle(VehiclePtr v) {
 }
 
 void RentManager::checkClientRentBalance(ClientPtr c) {
-    list<RentPtr> clientrents=findAll(archiveRents,[c](RentPtr r){return r->getClient()==c;});
+    list<RentPtr> clientrents=findAllArchive([c](RentPtr r){return r->getClient()==c;});
     int balance=0;
     list<RentPtr>::const_iterator i;
     for (i=clientrents.begin();i!=clientrents.end();i++)
@@ -120,25 +153,16 @@ void RentManager::changeClientType(ClientPtr c, int balance) {
 }}
 
 list<RentPtr> RentManager::getAllClientRents(ClientPtr c) {
-    list<RentPtr> clientarchiverents=findAll(archiveRents,[c](RentPtr r){return r->getClient()==c;});
-    list<RentPtr> clienttotalrents=findAll(currentRents,[c](RentPtr r){return r->getClient()==c;});
+    list<RentPtr> clientarchiverents=findAllArchive([c](RentPtr r){return r->getClient()==c;});
+    list<RentPtr> clienttotalrents=findAllCurrent([c](RentPtr r){return r->getClient()==c;});
     clienttotalrents.splice(clienttotalrents.end(),clientarchiverents);
     return clienttotalrents;
 }
 
-const RentRepoPtr &RentManager::getCurrentRents() const {
-    return currentRents;
+unsigned int RentManager::currentRepoSize() {
+    return currentRents->RepoSize();
 }
 
-const RentRepoPtr &RentManager::getArchiveRents() const {
-    return archiveRents;
+unsigned int RentManager::archiveRepoSize() {
+    return archiveRents->RepoSize();
 }
-
-std::list<RentPtr> &RentManager::getCurrentRentsList() {
-    return currentRents->RentRepo;
-}
-
-std::list<RentPtr> &RentManager::getArchiveRentsList() {
-    return archiveRents->RentRepo;
-}
-

@@ -13,12 +13,16 @@
 
 class VehicleRepository {
     private:
-        friend class VehicleManager;
         std::list<VehiclePtr> VehicleRepo;
 public:
         VehicleRepository();
         virtual ~VehicleRepository();
-    };
+        void add(VehiclePtr);
+        int RepoSize();
+        std::_List_iterator<std::shared_ptr<Vehicle>> begin();
+        std::_List_iterator<std::shared_ptr<Vehicle>> end();
+
+};
 
 
 #endif //CARRENTAL_VEHICLEREPOSITORY_H

@@ -15,6 +15,6 @@ Bicycle::~Bicycle() {
 }
 std::string Bicycle::getVehicleInfo() {
         ostringstream out;
-        out <<"Typ pojazdu: Rower"<<endl<<"Numer rejestacyjny: "<<plateNumber<<endl<<"Cena bazowa pojazdu: "<<basePrice<<endl;
+        out <<"Typ pojazdu: Rower"<<endl<<Vehicle::getVehicleInfo();
         return out.str();
 }

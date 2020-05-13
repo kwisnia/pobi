@@ -26,7 +26,7 @@ int main()
     VM->registerMoped("wiiu",20,200);
     cout << CM->report() << endl<<endl;
     cout << VM->report()<<endl<<endl;
-    cout << RM->report(RM->getCurrentRents())<<endl<<endl;
+    cout << RM->reportCurrent()<<endl<<endl;
 
     // Test prostej wyszukiwarki w repozytorium (tak po prostu napisalem, to nie jest czesc warsztatu)
     string pesel;

@@ -9,10 +9,11 @@
 #include "model/Vehicle.h"
 
 class MotorVehicle : public Vehicle {
-protected:
+private:
     unsigned int engineDisplacement;
-    unsigned int ActualRentalPrice();
 public:
+    unsigned int getActualRentalPrice();
+
     virtual ~MotorVehicle() = 0;
 
     MotorVehicle(const std::string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement);
@@ -20,6 +21,8 @@ public:
     unsigned int getEngineDisplacement() const;
 
     void setEngineDisplacement(unsigned int engineDisplacement);
+
+    std::string getVehicleInfo();
 };
 
 

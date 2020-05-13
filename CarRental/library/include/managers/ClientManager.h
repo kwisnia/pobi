@@ -14,7 +14,6 @@ public:
     ClientPtr registerClient(std::string,std::string,std::string,AddressPtr);
     static void unregisterClient(ClientPtr);
     ClientPtr getClient(std::string);
-    void add(ClientPtr);
     std::list<ClientPtr> findAll(ClientPredicate);
     ClientPtr find(ClientPredicate);
     std::string report();

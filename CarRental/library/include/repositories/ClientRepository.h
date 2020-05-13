@@ -10,11 +10,14 @@
 
 class ClientRepository {
     private:
-        friend class ClientManager;
         std::list<ClientPtr> ClientRepo;
     public:
         ClientRepository();
         virtual ~ClientRepository();
+        void add(ClientPtr);
+        int RepoSize();
+        std::_List_iterator<std::shared_ptr<Client>> begin();
+        std::_List_iterator<std::shared_ptr<Client>> end();
 };
 
 
