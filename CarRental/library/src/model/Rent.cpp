@@ -4,7 +4,7 @@
 
 #include "model/Rent.h"
 using namespace std;
-Rent::Rent(const unsigned int id, ClientPtr client, VehiclePtr vehicle, pt::ptime& beginTime) : ID(id), client(client),
+Rent::Rent(ClientPtr client, VehiclePtr vehicle, pt::ptime& beginTime) : ID(boost::uuids::random_generator()()), client(client),
                                                                                            vehicle(vehicle),
                                                                                            beginTime(beginTime) {
     if (beginTime==pt::not_a_date_time)
@@ -13,7 +13,7 @@ Rent::Rent(const unsigned int id, ClientPtr client, VehiclePtr vehicle, pt::ptim
 
 }
 
-const unsigned int Rent::getId() const {
+const boost::uuids::uuid Rent::getId() const {
     return ID;
 }
 
@@ -26,7 +26,7 @@ VehiclePtr Rent::getVehicle() const {
 }
 string Rent::getRentInfo() {
     ostringstream out;
-    out << "ID wypozyczenia: "<<ID<<endl<<client->getClientInfo()<<endl<<"Dane wypozyczonego pojazdu: "<<endl<<vehicle->getVehicleInfo()<<endl;
+    out << "ID wypozyczenia: "<<boost::uuids::to_string(ID)<<endl<<client->getClientInfo()<<endl<<"Dane wypozyczonego pojazdu: "<<endl<<vehicle->getVehicleInfo()<<endl;
     out << "Data rozpoczecia wypozyczenia: "<<beginTime<<endl;
     out << "Data zakonczenia wypozyczenia: "<<endTime<<endl;
     return out.str();

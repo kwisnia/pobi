@@ -6,21 +6,14 @@
 #define CARRENTAL_RENTREPOSITORY_H
 
 
-#include <list>
 #include "model/Rent.h"
+#include "Repository.h"
 
-class RentRepository {
-private:
-    std::list<RentPtr> RentRepo;
+class RentRepository : public Repository<Rent> {
 public:
     RentRepository();
     virtual ~RentRepository();
     void remove(RentPtr);
-    void add(RentPtr);
-    int RepoSize();
-    std::_List_iterator<std::shared_ptr<Rent>> begin();
-    std::_List_iterator<std::shared_ptr<Rent>> end();
-
 };
 
 

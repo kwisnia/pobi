@@ -11,6 +11,6 @@ void fillRepos(ClientManagerPtr CM, VehicleManagerPtr VM, RentManagerPtr RM){
     VM->registerCar("ELW9132", 500, 8000, Car::E);
     VM->registerBicycle("bleee", 20);
     pt::ptime testDefaultTime = pt::not_a_date_time;
-    RM->rentVehicle(1,CM->getClient("131431"),VM->getVehicle("ELW9132"),testDefaultTime);
-    RM->rentVehicle(2,CM->getClient("2300913"),VM->getVehicle("bleee"),testDefaultTime);
+    RM->rentVehicle(CM->getClient("131431"),VM->getVehicle("ELW9132"),testDefaultTime);
+    RM->rentVehicle(CM->getClient("2300913"),VM->getVehicle("bleee"),testDefaultTime);
 };

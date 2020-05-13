@@ -9,11 +9,14 @@
 #include "model/Client.h"
 #include "model/Vehicle.h"
 #include <boost/date_time.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
 namespace pt = boost::posix_time;
 namespace gr = boost::gregorian;
 class Rent {
 private:
-    const unsigned int ID;
+    boost::uuids::uuid ID;
     ClientPtr client;
     VehiclePtr vehicle;
     pt::ptime beginTime;
@@ -26,10 +29,9 @@ public:
 
     const pt::ptime &getEndTime() const;
 
-public:
-    Rent(const unsigned int id, ClientPtr client, VehiclePtr vehicle, pt::ptime& beginTime);
+    Rent(ClientPtr client, VehiclePtr vehicle, pt::ptime& beginTime);
 
-    const unsigned int getId() const;
+    const boost::uuids::uuid getId() const;
 
     ClientPtr getClient() const;
 

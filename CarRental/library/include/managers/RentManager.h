@@ -11,7 +11,7 @@ private:
     RentRepoPtr currentRents=std::make_shared<RentRepository>();
     RentRepoPtr archiveRents=std::make_shared<RentRepository>();
 public:
-    RentPtr rentVehicle(int,ClientPtr,VehiclePtr,pt::ptime);
+    RentPtr rentVehicle(ClientPtr,VehiclePtr,pt::ptime);
     void returnVehicle(VehiclePtr);
     void checkClientRentBalance(ClientPtr);
     void changeClientType(ClientPtr,int);

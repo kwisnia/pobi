@@ -3,7 +3,7 @@
 //
 #include <boost/test/unit_test.hpp>
 #include "utils.h"
-struct Repos{
+struct Manager{
     const std::string testFirstName = "Mikolaj";
     const std::string testLastName = "Kotkowski";
     const std::string testPersonalID = "23132132";
@@ -15,18 +15,18 @@ struct Repos{
     VehiclePtr testCar;
     AddressPtr testAddress;
 
-    Repos(){
+    Manager(){
         testAddress=std::make_shared<Address>("Luzik","Fiku","69");
         testClient=std::make_shared<Client>(testFirstName,testLastName,testPersonalID,testAddress);
         testCar=std::make_shared<Car>(testPlateNumber,testBasePrice,400,Car::B);
     }
-    ~Repos()
+    ~Manager()
     {
     }
 
 };
 
-BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Repos)
+BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Manager)
 
     BOOST_AUTO_TEST_CASE(RepoConstructorTest)
     {
@@ -34,7 +34,7 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Repos)
         VehicleManagerPtr testVM(new VehicleManager());
         RentManagerPtr testRM(new RentManager());
         fillRepos(testCM,testVM,testRM);
-        RentPtr test=testRM->findCurrent([](RentPtr r){return r->getId()==1;});
+        RentPtr test=testRM->findCurrent([](RentPtr r){return r->getClient()->getFirstName()=="Antoni";});
         BOOST_TEST_CHECK(test->getClient()->getFirstName()=="Antoni");
     }
     BOOST_AUTO_TEST_CASE(RepoFindAllTest) {
@@ -121,15 +121,15 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Repos)
     BOOST_AUTO_TEST_CASE(RentVehiclePositiveTest)
     {
         RentManagerPtr testRM(new RentManager());
-        BOOST_TEST_CHECK(testRM->rentVehicle(1,testClient,testCar,testDefaultTime)->getClient()==testClient);
+        BOOST_TEST_CHECK(testRM->rentVehicle(testClient,testCar,testDefaultTime)->getClient()==testClient);
         BOOST_TEST_CHECK(testRM->currentRepoSize()==1);
     }
     BOOST_AUTO_TEST_CASE(RentVehicleOverTheMaxTest)
     {
         RentManagerPtr testRM(new RentManager());
         VehiclePtr newBicycle(new Bicycle("JPMWZK",20));
-        testRM->rentVehicle(1,testClient,testCar,testDefaultTime);
-        BOOST_TEST_CHECK(testRM->rentVehicle(2,testClient,newBicycle,testDefaultTime)==nullptr);
+        testRM->rentVehicle(testClient,testCar,testDefaultTime);
+        BOOST_TEST_CHECK(testRM->rentVehicle(testClient,newBicycle,testDefaultTime)==nullptr);
         BOOST_TEST_CHECK(testRM->currentRepoSize()==1);
         BOOST_TEST_CHECK(testRM->getAllClientRents(testClient).size()==1);
     }
@@ -138,13 +138,13 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Repos)
         RentManagerPtr testRM(new RentManager());
         ClientManagerPtr testCM(new ClientManager());
         ClientPtr newClient(new Client("Jaina","Proudmoore","23323",testAddress));
-        testRM->rentVehicle(1,testClient,testCar,testDefaultTime);
-        BOOST_TEST_CHECK(testRM->rentVehicle(2,newClient,testCar,testDefaultTime)==nullptr);
+        testRM->rentVehicle(testClient,testCar,testDefaultTime);
+        BOOST_TEST_CHECK(testRM->rentVehicle(newClient,testCar,testDefaultTime)==nullptr);
     }
     BOOST_AUTO_TEST_CASE(ReturnVehicleBasicTest)
     {
         RentManagerPtr testRM(new RentManager());
-        testRM->rentVehicle(1,testClient,testCar,testDefaultTime);
+        testRM->rentVehicle(testClient,testCar,testDefaultTime);
         testRM->returnVehicle(testCar);
         BOOST_TEST_CHECK(testRM->archiveRepoSize()==1);
         BOOST_TEST_CHECK(testRM->currentRepoSize()==0);
@@ -153,7 +153,7 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Repos)
     {
         RentManagerPtr testRM(new RentManager());
         pt::ptime preminute = pt::ptime(gr::date(2020, 4, 17), pt::hours(9) + pt::minutes(25) + pt::seconds(40));
-        testRM->rentVehicle(1,testClient,testCar,preminute);
+        testRM->rentVehicle(testClient,testCar,preminute);
         testRM->returnVehicle(testCar);
         BOOST_TEST_CHECK(testClient->getMaxVehicles()==2);
     }
@@ -165,8 +165,8 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Repos)
         VehiclePtr newBicycle2(new Bicycle("JPMWZK1",50));
         VehiclePtr newBicycle3(new Bicycle("JPMWZK2",40));
         pt::ptime preminute = pt::ptime(gr::date(2020, 5, 10), pt::hours(9) + pt::minutes(25) + pt::seconds(40));
-        testRM->rentVehicle(1,testClient,newBicycle2,preminute);
-        testRM->rentVehicle(2,testClient,newBicycle3,preminute);
+        testRM->rentVehicle(testClient,newBicycle2,preminute);
+        testRM->rentVehicle(testClient,newBicycle3,preminute);
         testRM->returnVehicle(newBicycle2);
         testRM->returnVehicle(newBicycle3);
         BOOST_TEST_CHECK(testClient->getMaxVehicles()==3);
@@ -179,8 +179,8 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Repos)
         VehiclePtr newBicycle2(new Bicycle("JPMWZK1",50));
         VehiclePtr newBicycle3(new Bicycle("JPMWZK2",40));
         pt::ptime preminute = pt::ptime(gr::date(2020, 5, 5), pt::hours(9) + pt::minutes(25) + pt::seconds(40));
-        RentPtr rent1=testRM->rentVehicle(1,testClient,newBicycle2,preminute);
-        RentPtr rent2=testRM->rentVehicle(2,testClient,newBicycle3,preminute);
+        RentPtr rent1=testRM->rentVehicle(testClient,newBicycle2,preminute);
+        RentPtr rent2=testRM->rentVehicle(testClient,newBicycle3,preminute);
         testRM->returnVehicle(newBicycle2);
         std::list<RentPtr> testResult=testRM->getAllClientRents(testClient);
         BOOST_TEST_CHECK(testResult.front()==rent2);

@@ -7,17 +7,13 @@
 
 #include <list>
 #include "model/Client.h"
+#include "Repository.h"
 
-class ClientRepository {
-    private:
-        std::list<ClientPtr> ClientRepo;
+class ClientRepository : public Repository<Client> {
     public:
         ClientRepository();
         virtual ~ClientRepository();
-        void add(ClientPtr);
-        int RepoSize();
-        std::_List_iterator<std::shared_ptr<Client>> begin();
-        std::_List_iterator<std::shared_ptr<Client>> end();
+
 };
 
 

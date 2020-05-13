@@ -78,13 +78,13 @@ string RentManager::reportArchive() {
 
 
 
-RentPtr RentManager::rentVehicle(int id,ClientPtr c, VehiclePtr v, pt::ptime beginTime) {
+RentPtr RentManager::rentVehicle(ClientPtr c, VehiclePtr v, pt::ptime beginTime) {
     list<RentPtr> clientrents=findAllCurrent([c](RentPtr r){return r->getClient()==c;});
     RentPtr vehiclecheck=findCurrent([v](RentPtr r){return r->getVehicle()==v;});
     if (clientrents.size()==c->getMaxVehicles() or vehiclecheck!=nullptr)
         return nullptr;
     else
-    {   RentPtr newr(new Rent(id,c,v,beginTime));
+    {   RentPtr newr(new Rent(c,v,beginTime));
         currentRents->add(newr);
         return newr;
 }}

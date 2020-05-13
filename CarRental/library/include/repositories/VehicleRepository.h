@@ -10,18 +10,12 @@
 #include "model/Moped.h"
 #include "model/Bicycle.h"
 #include "model/Car.h"
+#include "Repository.h"
 
-class VehicleRepository {
-    private:
-        std::list<VehiclePtr> VehicleRepo;
+class VehicleRepository : public Repository<Vehicle>  {
 public:
         VehicleRepository();
         virtual ~VehicleRepository();
-        void add(VehiclePtr);
-        int RepoSize();
-        std::_List_iterator<std::shared_ptr<Vehicle>> begin();
-        std::_List_iterator<std::shared_ptr<Vehicle>> end();
-
 };
 
 
