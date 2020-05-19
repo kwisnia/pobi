@@ -42,7 +42,8 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Manager)
         VehicleManagerPtr testVM(new VehicleManager());
         RentManagerPtr testRM(new RentManager());
         fillRepos(testCM,testVM,testRM);
-        std::list<ClientPtr> found = testCM->findAll([this](ClientPtr c) { return c->getFirstName() == checkedFirstName;});
+        FirstNamePredicate check(checkedFirstName);
+        std::list<ClientPtr> found = testCM->findAll(check);
         BOOST_TEST_CHECK(found.front()->getLastName() == "Karwowski");
         auto i=std::next(found.begin(), 1);
         BOOST_TEST_CHECK((*i)->getLastName()=="Dygasinski");
@@ -53,7 +54,8 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Manager)
         VehicleManagerPtr testVM(new VehicleManager());
         RentManagerPtr testRM(new RentManager());
         fillRepos(testCM,testVM,testRM);
-        BOOST_TEST_CHECK(testCM->find([this](ClientPtr c) {return c->getFirstName()==checkedFirstName;})->getFirstName()==checkedFirstName);
+        FirstNamePredicate check(checkedFirstName);
+        BOOST_TEST_CHECK(testCM->find(check)->getFirstName()==checkedFirstName);
     }
     BOOST_AUTO_TEST_CASE(RepoReportTest)
     {
@@ -71,7 +73,8 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Manager)
     {
         ClientManagerPtr testCM(new ClientManager());
         testCM->registerClient(testFirstName,testLastName,testPersonalID,testAddress);
-        BOOST_TEST_CHECK(testCM->registerClient(testFirstName,testLastName,testPersonalID,testAddress)==(testCM->find([this](ClientPtr c) {return c->getFirstName()==testFirstName;})));
+        FirstNamePredicate check(testFirstName);
+        BOOST_TEST_CHECK(testCM->registerClient(testFirstName,testLastName,testPersonalID,testAddress)==(testCM->find(check)));
         BOOST_TEST_CHECK(testCM->RepoSize()==1);
     }
     BOOST_AUTO_TEST_CASE(RegisterNullAddressTest)
@@ -164,7 +167,7 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteManager,Manager)
         testClient->setClientType(bronze);
         VehiclePtr newBicycle2(new Bicycle("JPMWZK1",50));
         VehiclePtr newBicycle3(new Bicycle("JPMWZK2",40));
-        pt::ptime preminute = pt::ptime(gr::date(2020, 5, 10), pt::hours(9) + pt::minutes(25) + pt::seconds(40));
+        pt::ptime preminute = pt::ptime(gr::date(2020, 5, 16), pt::hours(9) + pt::minutes(25) + pt::seconds(40));
         testRM->rentVehicle(testClient,newBicycle2,preminute);
         testRM->rentVehicle(testClient,newBicycle3,preminute);
         testRM->returnVehicle(newBicycle2);

@@ -12,6 +12,8 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include "exceptions/RentException.h"
+
 namespace pt = boost::posix_time;
 namespace gr = boost::gregorian;
 class Rent {

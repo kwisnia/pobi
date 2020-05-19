@@ -4,7 +4,7 @@
 
 #include "model/Car.h"
 using namespace std;
-Car::Car(const string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement,
+Car::Car(const string &plateNumber, const int &basePrice, int engineDisplacement,
          Car::segmentType segment) : MotorVehicle(plateNumber, basePrice, engineDisplacement), segment(segment) {}
 
 Car::~Car() {

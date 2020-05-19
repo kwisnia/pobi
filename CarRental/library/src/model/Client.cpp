@@ -32,8 +32,17 @@ const string &Client::getFirstName() const {
 }
 
 void Client::setFirstName(const string &firstName) {
-    if(firstName.length()>0)
-    Client::firstName = firstName;
+    try {
+        if (firstName.length() != 0)
+            Client::firstName = firstName;
+        else
+            throw ClientException("Wprowadzono puste pole!");
+    }
+    catch (const VehicleException& ex) {
+        cout << "Wystapil problem: "<<endl;
+        cout << ex.what()<<endl;
+        throw;
+    }
 }
 
 const string &Client::getLastName() const {
@@ -41,8 +50,17 @@ const string &Client::getLastName() const {
 }
 
 void Client::setLastName(const string &lastName) {
-    if(lastName.length()>0)
-    Client::lastName = lastName;
+    try {
+        if (lastName.length() != 0)
+            Client::lastName = lastName;
+        else
+            throw ClientException("Wprowadzono puste pole!");
+    }
+    catch (const VehicleException& ex) {
+        cout << "Wystapil problem: "<<endl;
+        cout << ex.what()<<endl;
+        throw;
+    }
 }
 
 AddressPtr Client::getAddress() const {
@@ -70,9 +88,19 @@ const ClientTypePtr &Client::getClientType() const {
     return clientType;
 }
 
-void Client::setClientType(const ClientTypePtr &clientType) {
-    if (clientType!=nullptr)
-    Client::clientType = clientType;
+void Client::setClientType(const ClientTypePtr &clientType)
+{
+try {
+    if (clientType != nullptr)
+        Client::clientType = clientType;
+    else
+        throw ClientException("Nie przekazano poprawnie typu klienta!");
+}
+catch (const ClientException& ex) {
+cout << "Wystapil problem: "<<endl;
+cout << ex.what()<<endl;
+throw;
+}
 }
 
 int Client::getMaxVehicles() {

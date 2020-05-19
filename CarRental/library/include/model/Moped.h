@@ -9,7 +9,7 @@
 
 class Moped : public MotorVehicle {
 public:
-    Moped(const std::string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement);
+    Moped(const std::string &plateNumber, const int &basePrice, int engineDisplacement);
 
     unsigned int getActualRentalPrice() override;
 

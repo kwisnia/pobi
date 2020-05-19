@@ -5,7 +5,6 @@
 #ifndef CARRENTAL_RENTMANAGER_H
 #define CARRENTAL_RENTMANAGER_H
 #include "repositories/RentRepository.h"
-
 class RentManager {
 private:
     RentRepoPtr currentRents=std::make_shared<RentRepository>();

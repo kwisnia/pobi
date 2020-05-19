@@ -37,8 +37,8 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, C)
     }
     BOOST_AUTO_TEST_CASE(SetFirstNameNegativeTest){
         ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
-        klient->setFirstName("");
         BOOST_TEST_CHECK(klient->getFirstName()=="Michal");
+        BOOST_CHECK_THROW(klient->setFirstName(""),ClientException);
 }
     BOOST_AUTO_TEST_CASE(SetLastNamePositiveTest){
         ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
@@ -48,8 +48,8 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, C)
 }
     BOOST_AUTO_TEST_CASE(SetLastNameNegativeTest){
         ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
-        klient->setLastName("");
         BOOST_TEST_CHECK(klient->getLastName()==testLastName);
+        BOOST_CHECK_THROW(klient->setLastName(""),ClientException);
 }
     BOOST_AUTO_TEST_CASE(SetAddressPositiveTest){
         ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
@@ -70,7 +70,7 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, C)
 }
     BOOST_AUTO_TEST_CASE(SetClientTypeNegativeTest){
         ClientPtr klient(new Client(testFirstName, testLastName, testPersonalID, testaddress1));
-        klient->setClientType(nullptr);
+        BOOST_CHECK_THROW(klient->setClientType(nullptr),ClientException);
         BOOST_TEST_CHECK(klient->getMaxVehicles()==1);
 }
     BOOST_AUTO_TEST_CASE(ClientTypeConstantDiscountTest){

@@ -42,18 +42,23 @@ const pt::ptime &Rent::getEndTime() const {
 
 void Rent::endRent(pt::ptime &endTime)
 {
+    try{
     if (this->endTime==pt::not_a_date_time)
     {
         if (endTime.is_not_a_date_time())
             this->endTime = pt::second_clock::local_time();
         else if (endTime < beginTime)
-            this->endTime = beginTime;
+            throw RentException("Czas koncowy mniejszy od poczatkowego");
         else
             this->endTime = endTime;
 
         rentCost = this->getClient()->getClientType()->applyDiscount(getRentDays() * vehicle->getActualRentalPrice());
-    }
-}
+    }}
+    catch(const RentException& ex) {
+        cout << "Wystapil problem: " << endl;
+        cout << ex.what();
+        throw;
+    }}
 
 int Rent::getRentDays() const {
     if (endTime==pt::not_a_date_time)

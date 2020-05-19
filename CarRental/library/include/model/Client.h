@@ -8,6 +8,7 @@
 #include <vector>
 #include "Address.h"
 #include "model/ClientType.h"
+#include "exceptions/ClientException.h"
 #include <sstream>
 class Rent;
 

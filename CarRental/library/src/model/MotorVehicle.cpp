@@ -14,16 +14,33 @@ else
 }
 MotorVehicle::~MotorVehicle() {}
 
-MotorVehicle::MotorVehicle(const string &plateNumber, const unsigned int &basePrice,
-                           unsigned int engineDisplacement) : Vehicle(plateNumber, basePrice),
-                                                              engineDisplacement(engineDisplacement) {}
+MotorVehicle::MotorVehicle(const string &plateNumber, const int &basePrice,
+                           const int engineDisplacement) try : Vehicle(plateNumber, basePrice),
+                                                              engineDisplacement(engineDisplacement) {
+    if (this->engineDisplacement<0)
+        throw VehicleException("Pojemnosc silnika nie moze byc ujemna!");
+}
+catch (VehicleException& ex)
+{
+    cout << "Wystapil blad!"<<endl;
+    cout<<ex.what()<<endl;
+}
 
 unsigned int MotorVehicle::getEngineDisplacement() const {
     return engineDisplacement;
 }
 
-void MotorVehicle::setEngineDisplacement(unsigned int engineDisplacement) {
-    MotorVehicle::engineDisplacement = engineDisplacement;
+void MotorVehicle::setEngineDisplacement(int engineDisplacement) {
+    try{
+        if (basePrice<0)
+            throw VehicleException("Podana pojemnosc silnika jest ujemna!");
+        else
+            MotorVehicle::engineDisplacement = engineDisplacement;}
+    catch (const VehicleException& ex) {
+        cout << "Wystapil problem: "<<endl;
+        cout << ex.what()<<endl;
+        throw;
+    }
 }
 std::string MotorVehicle::getVehicleInfo() {
     ostringstream out;

@@ -8,18 +8,3 @@ ClientRepository::ClientRepository() {}
 
 ClientRepository::~ClientRepository() {
 }
-void ClientRepository::add(ClientPtr c) {
-    ClientRepo.push_back(c);
-}
-
-int ClientRepository::RepoSize() {
-    return ClientRepo.size();
-}
-
-_List_iterator<shared_ptr<Client>> ClientRepository::begin() {
-    return ClientRepo.begin();
-}
-
-_List_iterator<shared_ptr<Client>> ClientRepository::end() {
-    return ClientRepo.end();
-}

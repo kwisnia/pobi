@@ -19,7 +19,7 @@ public:
 private:
     segmentType segment;
 public:
-    Car(const std::string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement,
+    Car(const std::string &plateNumber, const int &basePrice, int engineDisplacement,
         segmentType segment);
 
     virtual ~Car();

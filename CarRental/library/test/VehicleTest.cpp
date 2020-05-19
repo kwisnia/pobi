@@ -49,7 +49,7 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteVehicle,V)
     BOOST_AUTO_TEST_CASE(SetPlateNumberNegativeTest)
     {
         CarPtr mclaren(new Car(testPlateNumber,testBasePrice,8000,Car::A));
-        mclaren->setPlateNumber("");
+        BOOST_CHECK_THROW(mclaren->setPlateNumber(""),VehicleException);
         BOOST_TEST_CHECK(mclaren->getPlateNumber()==testPlateNumber);
     }
     BOOST_AUTO_TEST_CASE(BicycleRentalPriceTest)

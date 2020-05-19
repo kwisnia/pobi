@@ -92,21 +92,28 @@ RentPtr RentManager::rentVehicle(ClientPtr c, VehiclePtr v, pt::ptime beginTime)
 void RentManager::returnVehicle(VehiclePtr v) {
     RentPtr vehiclecheck=findCurrent([v](RentPtr r){return r->getVehicle()==v;});
     pt::ptime endTime=pt::not_a_date_time;
-    if (vehiclecheck!=nullptr)
-    {
-    vehiclecheck->endRent(endTime);
-    list<RentPtr>::const_iterator i;
-    for (i=currentRents->begin();i!=currentRents->end();i++)
-    {
-        if((*i)->getVehicle()==v) {
-            currentRents->remove(*i);
-            archiveRents->add(*i);
-            break;
+    try {
+        if (vehiclecheck != nullptr) {
+            vehiclecheck->endRent(endTime);
+            list<RentPtr>::const_iterator i;
+            for (i = currentRents->begin(); i != currentRents->end(); i++) {
+                if ((*i)->getVehicle() == v) {
+                    currentRents->remove(*i);
+                    archiveRents->add(*i);
+                    break;
+                }
+            }
+            checkClientRentBalance(vehiclecheck->getClient());
         }
+        else
+            throw RentException("Pojazd nie jest wypozyczony");
     }
-    checkClientRentBalance(vehiclecheck->getClient());
-    }
-    else cout << "Blad: Pojazd nie jest wypozyczony"<<endl;
+catch (const RentException& ex)
+{
+    cout << "Wystapil blad: "<<endl;
+    cout << ex.what()<<endl;
+    throw;
+}
 }
 
 void RentManager::checkClientRentBalance(ClientPtr c) {

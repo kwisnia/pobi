@@ -16,11 +16,11 @@ public:
 
     virtual ~MotorVehicle() = 0;
 
-    MotorVehicle(const std::string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement);
+    MotorVehicle(const std::string &plateNumber, const int &basePrice, int engineDisplacement);
 
     unsigned int getEngineDisplacement() const;
 
-    void setEngineDisplacement(unsigned int engineDisplacement);
+    void setEngineDisplacement(int engineDisplacement);
 
     std::string getVehicleInfo();
 };

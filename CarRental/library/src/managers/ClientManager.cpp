@@ -6,30 +6,7 @@
 #include <iostream>
 using namespace std;
 
-list<ClientPtr> ClientManager::findAll(ClientPredicate check) {
-    list<ClientPtr> found;
-    for (list<ClientPtr>::const_iterator iter = this->clientRepository->begin(),
-                 end = this->clientRepository->end();
-         iter != end;
-         ++iter)
-    {
-        if(check(*iter))
-            found.push_back(*iter);
-    }
-    return found;
-}
 
-ClientPtr ClientManager::find(ClientPredicate check) {
-    for (list<ClientPtr>::const_iterator iter = this->clientRepository->begin(),
-                 end = this->clientRepository->end();
-         iter != end;
-         ++iter)
-    {
-        if(check(*iter))
-            return *iter;
-    }
-    return nullptr;
-}
 
 std::string ClientManager::report() {
     std::ostringstream out;
@@ -43,7 +20,8 @@ std::string ClientManager::report() {
     return out.str();
 }
 ClientPtr ClientManager::registerClient(string firstName, string lastName, string personalID, AddressPtr address) {
-    ClientPtr repeatCheck=find([personalID](ClientPtr c){return c->getPersonalId()==personalID;});
+    IDPredicate predicate(personalID);
+    ClientPtr repeatCheck=find<IDPredicate>(predicate);
     if (repeatCheck != nullptr)
         return repeatCheck;
     else if (address == nullptr)

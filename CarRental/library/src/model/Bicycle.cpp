@@ -8,7 +8,7 @@ unsigned int Bicycle::getActualRentalPrice() {
     return basePrice;
 }
 
-Bicycle::Bicycle(const string &plateNumber, const unsigned int &basePrice) : Vehicle(plateNumber, basePrice) {}
+Bicycle::Bicycle(const string &plateNumber, const int &basePrice) : Vehicle(plateNumber, basePrice) {}
 
 Bicycle::~Bicycle() {
 

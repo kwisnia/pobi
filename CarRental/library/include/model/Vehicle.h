@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include "model/typedefs.h"
+#include "exceptions/VehicleException.h"
 
 class Vehicle {
 protected:
@@ -19,7 +20,7 @@ public:
 
     void setIsArchive(bool isArchive);
 
-    Vehicle(const std::string &plateNumber, const unsigned int &basePrice);
+    Vehicle(const std::string &plateNumber, const int &basePrice);
 
     const std::string &getPlateNumber() const;
 
@@ -27,7 +28,7 @@ public:
 
     const unsigned int getBasePrice() const;
 
-    void setBasePrice(const unsigned int &basePrice);
+    void setBasePrice(const int &basePrice);
 
     virtual ~Vehicle();
 

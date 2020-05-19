@@ -4,7 +4,7 @@
 
 #include "model/Moped.h"
 using namespace std;
-Moped::Moped(const string &plateNumber, const unsigned int &basePrice, unsigned int engineDisplacement)
+Moped::Moped(const string &plateNumber, const int &basePrice, int engineDisplacement)
         : MotorVehicle(plateNumber, basePrice, engineDisplacement) {}
 
 unsigned int Moped::getActualRentalPrice() {

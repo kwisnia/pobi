@@ -24,14 +24,17 @@ int main()
     pt::ptime testDefaultTime = pt::not_a_date_time;
     CM->registerClient("Jaina", "Proudmoore", "23123", a);
     VM->registerMoped("wiiu",20,200);
+    VM->getVehicle("wiiu")->setBasePrice(-10);
     cout << CM->report() << endl<<endl;
     cout << VM->report()<<endl<<endl;
     cout << RM->reportCurrent()<<endl<<endl;
 
     // Test prostej wyszukiwarki w repozytorium (tak po prostu napisalem, to nie jest czesc warsztatu)
     string pesel;
-    cout << "Podaj pesel: ";
+    cout << "Podaj string: ";
     cin >> pesel;
-    list<ClientPtr> wynik=CM->findAll([pesel](ClientPtr c){return c->getPersonalId()==pesel;});
-    cout << "Dane znalezionego klienta: "<<wynik.front()->getClientInfo();
+    FirstNamePredicate predicate(pesel);
+    list<ClientPtr> wynik=CM->findAll<FirstNamePredicate>(predicate);
+    cout << "Dane znalezionego klienta: "<<wynik.front()->getClientInfo()<<endl;
+    cout << wynik.back()->getClientInfo()<<endl;
 }

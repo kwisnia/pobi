@@ -71,8 +71,7 @@ BOOST_FIXTURE_TEST_SUITE(TestSuiteRent, R)
 
     BOOST_AUTO_TEST_CASE(EndRentTestSetGivenEndTimeBeforeBeginTime) {
         RentPtr r(new Rent(testClient, testCar, testEndTime));
-        r->endRent(testBeginTime);
-        BOOST_TEST_CHECK(r->getEndTime() == testEndTime);
+        BOOST_CHECK_THROW(r->endRent(testBeginTime),RentException);
     }
 
     BOOST_AUTO_TEST_CASE(RentDaysTestRentNotEnded) {
