@@ -6,11 +6,11 @@
 using namespace std;
 unsigned int MotorVehicle::getActualRentalPrice() {
 if (engineDisplacement<1000)
-    return basePrice;
+    return getBasePrice();
 else if (engineDisplacement>=1000 and engineDisplacement<=2000)
-    return (0.0005*engineDisplacement+0.5)*basePrice;
+    return (0.0005*engineDisplacement+0.5)*getBasePrice();
 else
-    return 1.5*basePrice;
+    return 1.5*getBasePrice();
 }
 MotorVehicle::~MotorVehicle() {}
 
