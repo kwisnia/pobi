@@ -11,7 +11,7 @@
 #include "exceptions/VehicleException.h"
 
 class Vehicle {
-protected:
+private:
     std::string plateNumber;
     unsigned int basePrice;
     bool isArchive=false;
